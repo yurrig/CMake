@@ -2365,6 +2365,10 @@ void cmSystemTools::FindCMakeResources(const char* argv0)
     std::string const prefix =
       exe_dir.substr(0, exe_dir.size() - cmStrLen(CMAKE_BIN_DIR));
     cmSystemToolsCMakeRoot = cmStrCat(prefix, CMAKE_DATA_DIR);
+    if (!cmSystemTools::FileExists(
+          cmSystemToolsCMakeRoot + "/Modules/CMake.cmake")) {
+      cmSystemToolsCMakeRoot = prefix;
+    }
     if (cmSystemTools::FileExists(
           cmStrCat(prefix, CMAKE_DOC_DIR "/html/index.html"))) {
       cmSystemToolsHTMLDoc = cmStrCat(prefix, CMAKE_DOC_DIR "/html");
